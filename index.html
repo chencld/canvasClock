@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<style>
+		
+		</style>
+	</head>
+	<body>
+	  <canvas id="timer"></canvas>
+	  <script>
+	  	 var oCan = document.getElementById('timer');
+	  	 var ctx = oCan.getContext('2d');
+	  	 oCan.width = "500";
+	  	 oCan.height="500";
+     	 
+	  	 
+	  	 function setTime(){
+	  	 	 ctx.clearRect(0, 0, oCan.width, oCan.height);
+		  	 //画外圆弧
+		  	 ctx.beginPath();
+		  	 ctx.lineWidth = 20;
+		  	 ctx.strokeStyle = "#383838";
+		  	 ctx.arc(250,250,160,0,2*Math.PI);
+		  	 ctx.closePath();
+		  	 ctx.stroke();
+		  	 //画中心圆点
+		  	 ctx.beginPath();
+		  	 ctx.lineWidth = 5;
+		  	 ctx.strokeStyle = "#383838";
+		  	 ctx.arc(250,250,5,0,2*Math.PI);	  	 
+		  	 ctx.closePath();
+		  	 ctx.stroke();
+		  	 
+		  	 for(var i=0;i<60;i++){
+			  	 var r = Math.PI*i/30;
+			  	 var x1 = 250+120*Math.sin(r);
+			  	 var y1 = 250+120*Math.cos(r);
+			  	 var x2 = 250+130*Math.sin(r);
+			  	 var y2 = 250+130*Math.cos(r);
+			  	 var x3 = 250-100*Math.sin(r);
+			  	 var y3 = 250-100*Math.cos(r);
+	              
+			  	 if(i%5 == 0){
+	                 ctx.beginPath();
+				  	 ctx.lineWidth = 6;
+				  	 ctx.strokeStyle = "#383838";
+				  	 ctx.moveTo(x1,y1);
+				  	 ctx.lineTo(x2,y2);
+				  	 ctx.closePath();
+				  	 ctx.stroke();	
+				  	 
+				  	 ctx.beginPath();
+				  	 ctx.font="20px Georgia";
+	                 ctx.fillText(12-i/5,x3-5,y3+5);
+				  	 ctx.closePath();
+				  	 ctx.stroke();	 
+			  	 }
+			  	 else{
+			  	 	 ctx.beginPath();
+				  	 ctx.lineWidth = 2;
+				  	 ctx.strokeStyle = "#383838";
+				  	 ctx.moveTo(x1,y1);
+				  	 ctx.lineTo(x2,y2);
+				  	 ctx.closePath();
+				  	 ctx.stroke();
+			  	 }
+		  	 }
+	  	 	 var odate = new Date();
+		  	 var ohour = odate.getHours()>12 ? odate.getHours() - 12 : odate.getHours();
+		  	 var omin = odate.getMinutes();
+		  	 var osec = odate.getSeconds();
+		  	 //画小时
+		  	 var rh = 2*Math.PI*(60*ohour+omin)/720,
+		  	 
+		  	     rhx = 250+60*Math.sin(rh),
+		  	     rhy = 250-60*Math.cos(rh);
+		  	 ctx.beginPath();
+		  	 ctx.lineWidth = 5;
+		  	 ctx.strokeStyle = "#383838";
+		  	 ctx.moveTo(250,250);
+		  	 ctx.lineTo(rhx,rhy);	  	  	 
+		  	 ctx.closePath();
+		  	 ctx.stroke();
+		  	 //画分钟
+		  	 var rh2 = 2*Math.PI*omin/60,
+		  	     rhx2 = 250+100*Math.sin(rh2),
+		  	     rhy2 = 250-100*Math.cos(rh2);
+		  	 ctx.beginPath();
+		  	 ctx.lineWidth = 5;
+		  	 ctx.strokeStyle = "#383838";
+		  	 ctx.moveTo(250,250);
+		  	 ctx.lineTo(rhx2,rhy2);	  	  	 
+		  	 ctx.closePath();
+		  	 ctx.stroke();
+            //画秒
+		  	 var rh3 = 2*Math.PI*osec/60,
+		  	     rhx3 = 250+100*Math.sin(rh3),
+		  	     rhy3 = 250-100*Math.cos(rh3);
+		  	 ctx.beginPath();
+		  	 ctx.lineWidth = 5;
+		  	 ctx.strokeStyle = "#BF4116";
+		  	 ctx.moveTo(250,250);
+		  	 ctx.lineTo(rhx3,rhy3);	  	  	 
+		  	 ctx.closePath();
+		  	 ctx.stroke();		  	 
+	  	 }
+	
+	var int = self.setInterval(setTime,1000);
+	  </script>
+	</body>
+</html>
